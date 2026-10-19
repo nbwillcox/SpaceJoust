@@ -102,12 +102,18 @@
     else if (ground) { const f = 900 * dt; e.vx = Math.abs(e.vx) <= f ? 0 : e.vx - Math.sign(e.vx) * f; }
     else e.vx *= 1 - 0.3 * dt;
     e.vy = Math.min(C.MAX_FALL, e.vy + C.GRAVITY * dt);
-    if (flap) { e.vy = Math.max(e.vy - C.FLAP * fmul, -C.MAX_RISE * fmul); e.ground = false; e.flapA = 0; e.flapping = 0.28; if (e === Game.p) A.sfx.flap(); }
+    if (flap) {
+      e.vy = Math.max(e.vy - C.FLAP * fmul, -C.MAX_RISE * fmul); e.ground = false; e.flapA = 0; e.flapping = 0.28; if (e === Game.p) A.sfx.flap();
+      if (!S.reduced) { const col = e.tier === undefined ? 'rgba(126,232,255,0.8)' : C.TIERS[e.tier].col; for (let k = 0; k < 3; k++) FX.trail(e.x - e.face * (4 + k * 6) + U.rand(-3, 3), e.y + 14 + k * 2, col, 5 + k, 0.35); }
+    }
+    if (!S.reduced && !ground && Math.abs(e.vx) > 170 && Math.random() < dt * 22) FX.trail(e.x - e.face * 16, e.y + U.rand(-4, 8), e.tier === undefined ? 'rgba(126,232,255,0.6)' : C.TIERS[e.tier].col, 6, 0.3);
     if (e.flapping > 0) { e.flapping -= dt; e.flapA += dt * 30; } else e.flapA = ground ? 0.2 : 1.2 + Math.sin(Game.time * 3) * 0.2;
     e.x += e.vx * dt; e.y += e.vy * dt;
     wrapX(e);
     if (e.y < HH) { e.y = HH; e.vy = Math.max(e.vy, 50); }
+    const wasAir = !ground, fall = e.vy;
     collide(e, HW, HH, 0);
+    if (e.ground && wasAir && fall > 140 && !S.reduced) { FX.sparks(e.x, e.y + HH, 6, 70, 'rgba(200,230,255,0.9)', 0.3, 1.4); FX.ring(e.x, e.y + HH - 2, 3, 22, 'rgba(160,200,255,0.5)', 0.25, 1.5); }
     if (e.ground) e.run += Math.abs(e.vx) * dt * 0.12;
     if (e.vx > 25) e.face = 1; else if (e.vx < -25) e.face = -1;
   }
