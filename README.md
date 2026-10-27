@@ -20,6 +20,10 @@ Each flap gives a push upward, so a steady rhythm holds you in the air and a qui
 
 Play in landscape. A floating stick on the left steers; on the right, tap **FLAP** again and again to climb. The pause button opens the menu. The on-screen controls appear on touch devices automatically; Settings has size, opacity and a left-handed layout. Use your browser's *Add to Home Screen* to install it as a full-screen app.
 
+### Controller
+
+Plug in a gamepad and it just works: the stick or D-pad steers, tap **A / X / RT** to flap, **Start** pauses. In menus the D-pad / left stick moves the highlight, **A** selects, **B** goes back and **Start** plays or resumes. **Settings -> Controller** has a dead-zone slider and lets you remap every button.
+
 ## Gameplay
 
 - **The joust:** when two riders collide, the **higher** one wins. Level with each other, you just bounce apart. Get above your target and strike.
